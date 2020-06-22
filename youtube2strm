@@ -1,0 +1,1 @@
+youtube-dl -i --playlist-reverse -j --flat-playlist 'https://www.youtube.com/channel/UCosWOTQyKE0tN1qE4Ah80Og' | jq -r --tab '.title + "\t" + "plugin://plugin.video.youtube/play/?video_id=" + .id' | awk '{f=$1".strm"; print $2 >f}' FS='\t'
