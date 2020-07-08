@@ -1,2 +1,1 @@
-# Youtube-playlist-to-kodi-strm-files
-a Youtube-dl command line script to create kodi compatible strm files
+# Updated to a bash script. Now runs from linux command line asks for youtube playlist url and generates strms files for the playlist
