@@ -1,1 +1,12 @@
-youtube-dl -i --playlist-reverse -j --flat-playlist 'https://www.youtube.com/channel/UCosWOTQyKE0tN1qE4Ah80Og' | jq -r --tab '.title + "\t" + "plugin://plugin.video.youtube/play/?video_id=" + .id' | awk '{f=$1".strm"; print $2 >f}' FS='\t'
+#!/bin/bash
+
+
+
+read -p "Enter Youtube URL:"  url
+read -p "ScreenShot Time (1-60min): "   time
+
+youtube-dl -i  -j --flat-playlist $url | 
+jq -r --tab '.title + "\t" + "plugin://plugin.video.youtube/play/?video_id=" + .id' |
+ awk '{f=$1".strm"; print $2 >f}' FS='\t' | 
+youtube-dl -f mp4 -g $url | 
+parallel -I %% ffmpeg -ss "00:$time:00.000" -i %% -vframes 1 -q:v 2 -y {#}.png
